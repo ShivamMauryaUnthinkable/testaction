@@ -41,6 +41,6 @@ jobs:
           docker build -t nginx-html ./nginx_project
 
       # Step 6: (Optional) Push the Docker image to Docker Hub
-      # - name: Push Docker image to Docker Hub
-      #   run: |
-      #     docker push nginx-html
+      - name: Push Docker image to Docker Hub
+        run: |
+          docker push nginx-html
