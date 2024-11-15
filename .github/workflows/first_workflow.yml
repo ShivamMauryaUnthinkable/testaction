@@ -1,5 +1,4 @@
-# .github/workflows/hello-world.yml
-name: Hello World Workflow
+name: Build and Deploy Nginx Docker Image
 
 # Trigger the workflow on push or pull request to the main branch
 on:
@@ -12,14 +11,35 @@ on:
 
 # Define the job
 jobs:
-  say-hello:
+  build-and-deploy:
     runs-on: ubuntu-latest
 
     steps:
-      # Step to check out the code (optional if you don't need to access the codebase)
+      # Step 1: Checkout the repository code
       - name: Checkout code
         uses: actions/checkout@v3
 
-      # Step to echo "Hello, World!"
+      # Step 2: Echo "Hello, World!" to the console
       - name: Say Hello
         run: echo "Hello, World!"
+
+      # Step 3: Set up Docker Buildx (optional, for advanced Docker features)
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+
+      # Step 4: Log in to Docker Hub (optional if you want to push the image)
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+
+      # Step 5: Build the Docker image from the nginx_project folder
+      - name: Build Docker image
+        run: |
+          docker build -t nginx-html ./nginx_project
+
+      # Step 6: (Optional) Push the Docker image to Docker Hub
+      # - name: Push Docker image to Docker Hub
+      #   run: |
+      #     docker push nginx-html
