@@ -39,8 +39,9 @@ jobs:
       - name: Build Docker image
         run: |
           docker build -t nginx-html ./nginx_project
+          docker tag nginx-html shivam286/nginx-html
 
       # Step 6: (Optional) Push the Docker image to Docker Hub
       - name: Push Docker image to Docker Hub
         run: |
-          docker push nginx-html
+          docker push shivam286/nginx-html
